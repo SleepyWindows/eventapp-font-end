@@ -1,16 +1,13 @@
-import React, { Component } from 'react';
-import Login from '../components/login'
-import Signup from '../components/signup'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-class NavBar extends Component {
-    state = {  }
-    render() { 
-        return (
-            <div>
-                <h1>NavBar</h1>
-            </div>
-        );
-    }
+const NavBar = () => {
+    return (
+        <div>
+            <h1>NavBar</h1>
+            <NavLink to="/login' exact>Login</NavLink>
+        </div>
+    );
 }
  
 export default NavBar;
