@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-class SignUp extends Component {
+class Signup extends Component {
   state = {  }
   render() { 
-    return ( <h3>SignUp Component</h3> );
+    return ( <h1>Signup</h1> );
   }
 }
  
-export default SignUp;
+export default Signup;
