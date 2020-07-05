@@ -3,10 +3,17 @@ import Banner from '../components/banner'
 import EventDetail from '../components/eventDetail';
 import EventTimeline from '../components/eventTimeline';
 import ChatBot from '../components/chatBot'
-import EventDetail from '../components/eventList'
+import EventList from '../components/eventList'
 
 class ContentContainer extends Component {
-    state = {  }
+    // state = { 
+    //     events: this.props.events
+    //  }
+    changeEventDetail = () => {
+        console.log("Change Event Detail")
+      }
+    
+
     render() { 
         console.log("ContentContainer", this.props)
         return (
