@@ -8,13 +8,8 @@ import Dashboard from './components/dashboard'
 import EventList from './components/eventList';
 import ContentContainer from './containers/contentContainer';
 
-const EVENT_URL = () => {
-  return 'http://localhost:3000/events'
-}
-
-const ORG_URL = () => {
-  return 'http://localhost:3000/organizations'
-}
+const EVENT_URL = 'http://localhost:3000/events'
+const ORG_URL = 'http://localhost:3000/organizations'
 
 class App extends React.Component {
   state = { 
