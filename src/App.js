@@ -40,7 +40,7 @@ class App extends React.Component {
   fetchOrganization = () => {
     fetch(ORG_URL)
     .then(res => res.json())
-    .then(events => {console.log("Fetch Evetns", events)
+    .then(orgs => {console.log("Fetch Organizations", orgs)
     })
   }
 
