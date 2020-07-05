@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class EventList extends Component {
   state = {  }
   render() { 
-    return ( <h3>EventList</h3> );
+    return ( <h1>EventList</h1> );
   }
 }
  
