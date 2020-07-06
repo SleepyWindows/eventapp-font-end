@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-
-const NavBar = () => {
-    return (
-        <div>
-            <h1>NavBar</h1>
-        </div>
-    );
-=======
 import React, { Component } from 'react';
 import {
     Menu,
@@ -58,7 +48,6 @@ class NavBar extends Component {
             </Menu>
         </div>);
     }
->>>>>>> origin/EdwinCalvillo
 }
  
 export default NavBar;

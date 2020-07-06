@@ -8,9 +8,6 @@ import{
 class Banner extends Component {
     state = {  }
     render() { 
-<<<<<<< HEAD
-        return ( <h1>Banner</h1> );
-=======
         return ( 
         <Container fluid size='tiny'>
             {/* image may need to be passed as a prop to allow conditional rendering. If no photo is chosen then default photo will be used instead with event name listed at image center. */}
@@ -18,7 +15,6 @@ class Banner extends Component {
             <Header  as='h1'>{this.props.name}</Header>
         </Container> 
         )
->>>>>>> origin/EdwinCalvillo
     }
 }
  
