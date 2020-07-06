@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { ImageGroup } from 'semantic-ui-react';
-import { Image, Item } from "semantic-ui-react";
-import { Table } from 'semantic-ui-react'
-
+import { ImageGroup, Image, Item  } from 'semantic-ui-react';
 
 class EventList extends Component {
-  // state = {  }
 
   render() { 
     return (
