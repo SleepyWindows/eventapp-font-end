@@ -37,17 +37,7 @@ class NavBar extends Component {
                     onClick={this.handleItemClick}
                     />
                 </Link>
-                
-                {localStorage.token 
-                ? <Link><Menu.Item
-                    name='Logout'
-                    active={activeItem === 'Logout'}
-                    onClick={this.handleLogout}/></Link>
-                : <Link to="/login"><Menu.Item
-                    name='Login'
-                    active={activeItem === 'Login'}
-                    onClick={this.handleItemClick}
-                /></Link>}
+
                 
                 <Link to="/about">
                     <Menu.Item
@@ -60,6 +50,16 @@ class NavBar extends Component {
                 <Menu.Item>
                     <Icon size="big" name='address card'/>
                 </Menu.Item>
+                {localStorage.token 
+                ? <Link><Menu.Item
+                    name='Logout'
+                    active={activeItem === 'Logout'}
+                    onClick={this.handleLogout}></Menu.Item></Link>
+                : <Link to="/login"><Menu.Item
+                    name='Login'
+                    active={activeItem === 'Login'}
+                    onClick={this.handleItemClick}
+                ></Menu.Item></Link>}
                 <Menu.Item>
                     <Input icon='search' placeholder='Search...' />
                 </Menu.Item>

@@ -74,11 +74,13 @@ class App extends React.Component {
       let sorted = [...this.state.events].filter(event => event.public === true)
       switch (this.state.sort) {
         case "alphabetically":
-          return sorted = sorted.sort((a, b) => {if(a.title < b.title) {return -1} else if (a.title > b.title) {return 1} else {return 0}})
+          // return sorted = sorted.sort((a, b) => {if(a.title < b.title) {return -1} else if (a.title > b.title) {return 1} else {return 0}})
+          return sorted = sorted.sort((a, b) => a.title.localeCompare(b.title))
         case "date":
           return sorted = sorted.sort((a, b) => {return a.date - b.date})
         case "category":
-          return sorted = sorted.sort((a, b) => {if(a.category < b.category) {return -1} else if (a.category > b.category) {return 1} else {return 0}})
+          // return sorted = sorted.sort((a, b) => {if(a.category < b.category) {return -1} else if (a.category > b.category) {return 1} else {return 0}})
+          return sorted = sorted.sort((a, b) => a.category.localeCompare(b.category))
         default: 
           return sorted
       }
@@ -91,15 +93,31 @@ class App extends React.Component {
       <div className="App">
         {this.state.isLoading
         ? <h4> Loading... </h4>
-        :
-        <Router>
-          <NavBar handleStateChange={this.handleStateChanges} />
-          <Route exact path="/home" component={() => <ContentContainer event={this.state.event} events={this.state.events} organizations={this.state.organizations} fetchEvents={this.fetchEvents}/>} />
-          <Route exact path="/login" component={() => <Login handleStateChange={this.handleStateChanges} />} />
-          <Route exact path="/signup" component={() => <Signup orgs={this.state.organizations} />} />
-          <Route exact path="/dashboard" component={() => this.state.token ? <Dashboard orgs={this.state.organizations} events={events} handleStateChange={this.handleStateChanges} sort={this.state.sort} user={this.state.user} /> : <Redirect to='/login'/>} />
-          <Route exact path="/about" component={About}/>
-        </Router>
+        : <Router>
+            <NavBar handleStateChange={this.handleStateChanges} />
+            <Route exact path="/home" component={() =>
+              <ContentContainer 
+                event={this.state.event} 
+                events={this.state.events} 
+                organizations={this.state.organizations} 
+                fetchEvents={this.fetchEvents}/>} />
+            <Route exact path="/login" component={() => 
+              <Login 
+                handleStateChange={this.handleStateChanges} />} />
+            <Route exact path="/signup" component={() => 
+              <Signup 
+                orgs={this.state.organizations} />} />
+            <Route exact path="/dashboard" component={() => 
+              this.state.token 
+              ? <Dashboard 
+                  orgs={this.state.organizations} 
+                  events={events} 
+                  handleStateChange={this.handleStateChanges} 
+                  sort={this.state.sort} 
+                  user={this.state.user} /> 
+              : <Redirect to='/login'/>} />
+            <Route exact path="/about" component={About}/>
+          </Router>
         }
       </div>
      );
