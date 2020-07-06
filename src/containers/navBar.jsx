@@ -4,6 +4,7 @@ import {
     Input,
     Icon
 } from 'semantic-ui-react'
+import { Link } from "react-router-dom";
 
 class NavBar extends Component {
     state = { 
@@ -16,27 +17,40 @@ class NavBar extends Component {
         return ( 
         <div>
             <Menu pointing>
-                <Menu.Item>{this.props.name}</Menu.Item>
-                <Menu.Item
-                name='Home'
-                active={activeItem === 'home'}
-                onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                name='Communication'
-                active={activeItem === 'communication'}
-                onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                name='Login'
-                active={activeItem === 'Login'}
-                onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                name='About'
-                active={activeItem === 'about'}
-                onClick={this.handleItemClick}
-                />
+                <Link to="/home">
+                    <Menu.Item>{this.props.name}</Menu.Item>
+                    <Menu.Item
+                    name='Home'
+                    active={activeItem === 'home'}
+                    onClick={this.handleItemClick}
+                    />
+                </Link>
+                <Link to="/dashboard">
+                    <Menu.Item
+                    name='Dashboard'
+                    active={activeItem === 'dashboard'}
+                    onClick={this.handleItemClick}
+                    />
+                </Link>
+                
+                {localStorage.token 
+                ? <Link to=""><Menu.Item
+                    name='Logout'
+                    active={activeItem === 'Logout'}
+                    onClick={this.handleItemClick}/></Link> 
+                : <Link to=""><Menu.Item
+                    name='Login'
+                    active={activeItem === 'Login'}
+                    onClick={this.handleItemClick}
+                /></Link>}
+                
+                <Link to="/about">
+                    <Menu.Item
+                    name='About'
+                    active={activeItem === 'about'}
+                    onClick={this.handleItemClick}
+                    />
+                </Link>
                 <Menu.Menu position='right'>
                 <Menu.Item>
                     <Icon name='address card'/>

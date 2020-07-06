@@ -59,6 +59,7 @@ class App extends React.Component {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/dashboard" component={Dashboard} />
           <Route exact path="/eventlist" component={EventList}/>
+          <Route exact path="/about" component={About}/>
         </Router> */}
         {this.state.isLoading
         ? <h4> Loading... </h4>
