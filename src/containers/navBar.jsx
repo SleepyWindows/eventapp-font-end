@@ -16,9 +16,8 @@ class NavBar extends Component {
         const { activeItem } = this.state
         return ( 
         <div>
-            <Menu pointing>
+            <Menu pointing style={{height: "55px"}}>
                 <Link to="/home">
-                    <Menu.Item>{this.props.name}</Menu.Item>
                     <Menu.Item
                     name='Home'
                     active={activeItem === 'home'}
@@ -51,9 +50,9 @@ class NavBar extends Component {
                     onClick={this.handleItemClick}
                     />
                 </Link>
-                <Menu.Menu position='right'>
+                <Menu.Menu position='right' style={{paddingBottom: "10px" }}>
                 <Menu.Item>
-                    <Icon name='address card'/>
+                    <Icon size="big" name='address card'/>
                 </Menu.Item>
                 <Menu.Item>
                     <Input icon='search' placeholder='Search...' />
