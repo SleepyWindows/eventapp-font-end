@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Image, Button, Header, Icon, Dropdown } from 'semantic-ui-react'
+import { Card, Image, Button, Header, Icon, Dropdown} from 'semantic-ui-react'
 import moment from 'moment'
 
 
@@ -21,11 +21,12 @@ class EventDetail extends Component {
                     <span className='category'>{category}</span>
                 </Card.Meta>
                 <Card.Description>
-                    {moment(date).format("dddd, MMMM D, YYYY" )}
-                </Card.Description>
-                <Card.Description>
                     {description}
                 </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <Icon name='calendar alternate outline' />
+                    {moment(date).format("dddd, MMMM D, YYYY" )}
                 </Card.Content>
             </Card>    
             // <div>
