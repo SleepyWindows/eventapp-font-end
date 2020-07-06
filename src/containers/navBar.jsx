@@ -39,11 +39,11 @@ class NavBar extends Component {
                 </Link>
                 
                 {localStorage.token 
-                ? <Link to=""><Menu.Item
+                ? <Menu.Item
                     name='Logout'
                     active={activeItem === 'Logout'}
-                    onClick={this.handleLogout}/></Link> 
-                : <Link to=""><Menu.Item
+                    onClick={this.handleLogout}/>
+                : <Link to="/login"><Menu.Item
                     name='Login'
                     active={activeItem === 'Login'}
                     onClick={this.handleItemClick}
