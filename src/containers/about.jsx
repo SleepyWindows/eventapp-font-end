@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import{ Header, Container } from 'semantic-ui-react'
 
 const About = () => {
@@ -12,5 +12,3 @@ const About = () => {
 }
  
 export default About;
-
-

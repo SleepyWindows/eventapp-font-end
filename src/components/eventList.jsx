@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageGroup, Image, Item  } from 'semantic-ui-react';
+import { Item  } from 'semantic-ui-react';
 
 class EventList extends Component {
 

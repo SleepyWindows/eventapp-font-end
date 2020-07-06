@@ -4,7 +4,7 @@ import EventDetail from '../components/eventDetail';
 import EventTimeline from '../components/eventTimeline';
 import ChatBot from '../components/chatBot'
 import EventList from '../components/eventList'
-import { Grid, Image } from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 
 class ContentContainer extends Component {
