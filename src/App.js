@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import Login from './components/auth/login.js';
 import Signup from './components/auth/signup';
 import Dashboard from './components/dashboard'
 import NavBar from './containers/navBar';
-// import Content from './containers/contentContainer';
-// import EventList from './components/eventList';
+import About from './containers/about'
+import Content from './containers/contentContainer';
+import EventList from './components/eventList';
 import ContentContainer from './containers/contentContainer';
 const EVENT_URL = 'http://localhost:3000/events'
 const ORG_URL = 'http://localhost:3000/organizations'
@@ -19,8 +20,8 @@ class App extends React.Component {
     isLoading: true,
     organizations: [],
     sort: "",
-    token: "",
-    user: {}
+    token: localStorage.token,
+    user: JSON.parse(localStorage.getItem("user"))
   }
 
   componentDidMount() {
@@ -32,7 +33,7 @@ class App extends React.Component {
     fetch(EVENT_URL, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.token}`
+        Authorization: `Bearer ${this.state.token}`
       }
     })
     .then(res => res.json())
@@ -49,7 +50,7 @@ class App extends React.Component {
     fetch(ORG_URL, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${localStorage.token}`
+        Authorization: `Bearer ${this.state.token}`
       }
     })
     .then(res => res.json())
@@ -61,12 +62,11 @@ class App extends React.Component {
     })
   }
 
-  handleSort = (data) => {
+  handleStateChanges = (key, value) => {
     this.setState({
-      sort: data
+      [key]: value
     })
   }
-
   
   eventList = () => {
     // console.log(this.state.events.error == "Please Login")
@@ -95,11 +95,12 @@ class App extends React.Component {
         ? <h4> Loading... </h4>
         :
         <Router>
-          <NavBar/>
+          <NavBar handleStateChange={this.handleStateChanges} />
           <Route exact path="/home" component={() => <ContentContainer event={this.state.event} events={this.state.events} organizations={this.state.organizations} fetchEvents={this.fetchEvents}/>} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/login" component={() => <Login handleStateChange={this.handleStateChanges} />} />
           <Route exact path="/signup" component={() => <Signup orgs={this.state.organizations} />} />
-          <Route exact path="/dashboard" component={() => <Dashboard orgs={this.state.organizations} events={events} handleSort={this.handleSort} sort={this.state.sort} />} />
+          <Route exact path="/dashboard" component={() => this.state.token ? <Dashboard orgs={this.state.organizations} events={events} handleStateChange={this.handleStateChanges} sort={this.state.sort} user={this.state.user} /> : <Redirect to='/login'/>} />
+          <Route exact path="/about" component={About}/>
         </Router>
         }
       </div>
