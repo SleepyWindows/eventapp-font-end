@@ -4,6 +4,8 @@ import EventDetail from '../components/eventDetail';
 import EventTimeline from '../components/eventTimeline';
 import ChatBot from '../components/chatBot'
 import EventList from '../components/eventList'
+import { Grid, Image } from 'semantic-ui-react'
+
 
 class ContentContainer extends Component {
     state = { 
@@ -11,22 +13,28 @@ class ContentContainer extends Component {
     }
 
     changeEventDetail = (newEvent) => {
-        // this.setState({
-        //     eventDetail: newEvent
-        // }, () => this.props.fetchEvents())
-        console.log("NewEvent Detail")
+        this.setState({
+            eventDetail: newEvent
+        })
     }
     
-
-
     render() { 
+
         return (
             <div>
                 <Banner />
-                <EventDetail event={this.state.eventDetail} key={this.state.eventDetail.id}/>
-                <EventTimeline />
-                <ChatBot />
-                <EventList events={this.props.events} changeEventDetail={this.changeEventDetail}/>
+                <Grid>
+                    <Grid.Column width={6}>
+                    <EventDetail event={this.state.eventDetail} key={this.state.eventDetail.id} />
+                    </Grid.Column>
+                    <Grid.Column width={6}>
+                    <EventList events={this.props.events} changeEventDetail={this.changeEventDetail}/>
+                    </Grid.Column>
+                    <Grid.Column width={4}>
+                    <EventTimeline />
+                    <ChatBot />
+                    </Grid.Column>
+                </Grid>
             </div>
         );
     }
