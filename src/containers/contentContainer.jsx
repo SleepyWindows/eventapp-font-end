@@ -6,23 +6,29 @@ import ChatBot from '../components/chatBot'
 import EventList from '../components/eventList'
 
 class ContentContainer extends Component {
-    // state = { 
-    //     events: this.props.events
-    //  }
-    changeEventDetail = () => {
-        console.log("Change Event Detail")
-      }
+    state = { 
+        eventDetail: this.props.event
+    }
+
+    changeEventDetail = (newEvent) => {
+        // this.setState({
+        //     eventDetail: newEvent
+        // }, () => this.props.fetchEvents())
+        console.log("NewEvent Detail")
+    }
     
 
+
     render() { 
-        console.log("ContentContainer", this.props)
+        console.log("ContentContainer Event", this.props.events)
+        console.log("ContentContainer Orgs", this.props.organizations)
         return (
             <div>
                 <Banner />
-                <EventDetail />
+                <EventDetail event={this.props.events[0]} key={this.props.events[0].id}/>
                 <EventTimeline />
                 <ChatBot />
-                <EventList />
+                <EventList events={this.props.events} changeEventDetail={this.changeEventDetail}/>
             </div>
         );
     }
