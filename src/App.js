@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
 // import { BrowserRouter as Router, Route} from 'react-router-dom';
-// import NavBar from './containers/navBar';
-// import Login from './components/auth/login';
-// import Signup from './components/auth/signup';
-// import Dashboard from './components/dashboard'
-// import EventList from './components/eventList';
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import Signup from './components/auth/signup';
+import Dashboard from './components/dashboard'
+import NavBar from './containers/navBar';
+import Content from './containers/contentContainer';
+import EventList from './components/eventList';
 import ContentContainer from './containers/contentContainer';
 
 const EVENT_URL = 'http://localhost:3000/events'
@@ -17,7 +18,9 @@ class App extends React.Component {
     searchTerm: '',
     eventDetail: null,
     isLoading: true,
-    organizations: []
+    organizations: [],
+    sort: "",
+    user: JSON.parse(localStorage.getItem("user"))
   }
 
   componentDidMount() {
@@ -26,7 +29,12 @@ class App extends React.Component {
   }
 
   fetchEvents = () => {
-    fetch(EVENT_URL)
+    fetch(EVENT_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.state.token}`
+      }
+    })
     .then(res => res.json())
     .then(events => {
       this.setState({
@@ -38,7 +46,12 @@ class App extends React.Component {
   }
 
   fetchOrganization = () => {
-    fetch(ORG_URL)
+    fetch(ORG_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.state.token}`
+      }
+    })
     .then(res => res.json())
     .then(orgs => {
       this.setState({
@@ -48,49 +61,11 @@ class App extends React.Component {
     })
   }
 
-import { BrowserRouter as Router, Route} from 'react-router-dom';
-import Login from './components/auth/login.js';
-import Signup from './components/auth/signup';
-import Dashboard from './components/dashboard'
-import NavBar from './containers/navBar';
-import Content from './containers/contentContainer';
-import EventList from './components/eventList';
-
-
-class App extends React.Component {
-  state = {
-    orgs: [],
-    events: [],
-    sort: "",
-    token: "",
-    user: {}
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:3000/organizations', {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.token}`
-      }
-    })
-      .then(res => res.json())
-      .then(result => this.setState({orgs: result}))
-    fetch('http://localhost:3000/events', {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.token}`
-      }
-    })
-      .then(res => res.json())
-      .then(result => this.setState({events: result}))
-  }
-
-  handleSort = (data) => {
+  handleStateChanges = (key, value) => {
     this.setState({
-      sort: data
+      [key]: value
     })
   }
-
   
   eventList = () => {
     // console.log(this.state.events.error == "Please Login")
@@ -135,12 +110,11 @@ class App extends React.Component {
         </div>
         }
         <Router>
-          <NavBar/>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={() => <Signup orgs={this.state.orgs} />} />
-          <Route exact path="/dashboard" component={() => <Dashboard orgs={this.state.orgs} events={events} handleSort={this.handleSort} sort={this.state.sort} />} />
-          <Route exact path="/eventlist" component={EventList}/>
+          <NavBar handleStateChange={this.handleStateChanges} />
+          <Route exact path="/home" component={() => <ContentContainer event={this.state.event} events={this.state.events} organizations={this.state.organizations} fetchEvents={this.fetchEvents}/>} />
+          <Route exact path="/login" component={() => <Login handleStateChange={this.handleStateChanges} />} />
+          <Route exact path="/signup" component={() => <Signup orgs={this.state.organizations} />} />
+          <Route exact path="/dashboard" component={() => this.state.token ? <Dashboard orgs={this.state.organizations} events={events} handleStateChange={this.handleStateChanges} sort={this.state.sort} user={this.state.user} /> : <Redirect to='/login'/>} />
         </Router>
       </div>
      );

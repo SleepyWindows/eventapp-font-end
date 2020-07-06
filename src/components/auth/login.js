@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { Button, Form, Message, Header, Segment, Grid } from "semantic-ui-react";
 import './auth.css';
 
-export default class Login extends Component {
+class Login extends Component {
 
     handleChange = (e) => {
         this.setState({
@@ -27,6 +27,10 @@ export default class Login extends Component {
             .then(res => res.json())
             .then(userInfo => {
                 localStorage.token = userInfo.token
+                localStorage.setItem("user", JSON.stringify({username: userInfo.username, role: userInfo.role, events: userInfo.events, token: userInfo.token}))
+                this.props.handleStateChange("token", userInfo.token)
+                this.props.handleStateChange("user", userInfo)
+                this.props.history.push('/dashboard')
             })
     }
     
@@ -80,3 +84,5 @@ export default class Login extends Component {
         );
     };
 };
+
+export default withRouter(Login);

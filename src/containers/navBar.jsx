@@ -4,11 +4,18 @@ import {
     Input,
     Icon
 } from 'semantic-ui-react'
+import { withRouter, Link } from 'react-router-dom'
 
 class NavBar extends Component {
     state = { 
         activeItem: 'home'
      }
+    
+    handleLogout = () => {
+        localStorage.clear()
+        this.props.handleStateChange("token", null)
+        this.props.history.push('/home')
+    }
     //  These menu options will need to point to methods in app.js to display the appropriate content.
     handleItemClick = (e, {name}) => this.setState({activeItem: name})
     render() { 
@@ -17,14 +24,15 @@ class NavBar extends Component {
         <div>
             <Menu pointing>
                 <Menu.Item>{this.props.name}</Menu.Item>
+                <Link to="/home">
+                    <Menu.Item
+                    name='Home'
+                    active={activeItem === 'home'}
+                    />
+                </Link>
                 <Menu.Item
-                name='Home'
-                active={activeItem === 'home'}
-                onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                name='Communication'
-                active={activeItem === 'communication'}
+                name='Dashboard'
+                active={activeItem === 'dashboard'}
                 onClick={this.handleItemClick}
                 />
                 <Menu.Item
@@ -32,6 +40,19 @@ class NavBar extends Component {
                 active={activeItem === 'Login'}
                 onClick={this.handleItemClick}
                 />
+                {localStorage.token 
+                ? <Menu.Item
+                    name='Logout'
+                    active={activeItem === 'Logout'}
+                    onClick={() => {
+                        this.handleLogout();
+                        
+                    }}/> 
+                : <Menu.Item
+                    name='Login'
+                    active={activeItem === 'Login'}
+                    onClick={this.handleItemClick}
+                />}
                 <Menu.Item
                 name='About'
                 active={activeItem === 'about'}
@@ -50,4 +71,4 @@ class NavBar extends Component {
     }
 }
  
-export default NavBar;
+export default withRouter(NavBar);
