@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-// import { BrowserRouter as Router, Route} from 'react-router-dom';
 import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import Login from './components/auth/login.js';
 import Signup from './components/auth/signup';
 import Dashboard from './components/dashboard'
 import NavBar from './containers/navBar';
@@ -20,6 +20,7 @@ class App extends React.Component {
     isLoading: true,
     organizations: [],
     sort: "",
+    token: localStorage.token,
     user: JSON.parse(localStorage.getItem("user"))
   }
 
