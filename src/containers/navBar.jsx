@@ -22,45 +22,43 @@ class NavBar extends Component {
         const { activeItem } = this.state
         return ( 
         <div>
-            <Menu pointing>
-                <Menu.Item>{this.props.name}</Menu.Item>
+            <Menu pointing style={{height: "55px"}}>
                 <Link to="/home">
                     <Menu.Item
                     name='Home'
                     active={activeItem === 'home'}
+                    onClick={this.handleItemClick}
                     />
                 </Link>
-                <Menu.Item
-                name='Dashboard'
-                active={activeItem === 'dashboard'}
-                onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                name='Login'
-                active={activeItem === 'Login'}
-                onClick={this.handleItemClick}
-                />
+                <Link to="/dashboard">
+                    <Menu.Item
+                    name='Dashboard'
+                    active={activeItem === 'dashboard'}
+                    onClick={this.handleItemClick}
+                    />
+                </Link>
+                
                 {localStorage.token 
-                ? <Menu.Item
+                ? <Link to=""><Menu.Item
                     name='Logout'
                     active={activeItem === 'Logout'}
-                    onClick={() => {
-                        this.handleLogout();
-                        
-                    }}/> 
-                : <Menu.Item
+                    onClick={this.handleLogout}/></Link> 
+                : <Link to=""><Menu.Item
                     name='Login'
                     active={activeItem === 'Login'}
                     onClick={this.handleItemClick}
-                />}
-                <Menu.Item
-                name='About'
-                active={activeItem === 'about'}
-                onClick={this.handleItemClick}
-                />
-                <Menu.Menu position='right'>
+                /></Link>}
+                
+                <Link to="/about">
+                    <Menu.Item
+                    name='About'
+                    active={activeItem === 'about'}
+                    onClick={this.handleItemClick}
+                    />
+                </Link>
+                <Menu.Menu position='right' style={{paddingBottom: "10px" }}>
                 <Menu.Item>
-                    <Icon name='address card'/>
+                    <Icon size="big" name='address card'/>
                 </Menu.Item>
                 <Menu.Item>
                     <Input icon='search' placeholder='Search...' />

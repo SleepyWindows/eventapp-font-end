@@ -5,10 +5,10 @@ import Login from './components/auth/login.js';
 import Signup from './components/auth/signup';
 import Dashboard from './components/dashboard'
 import NavBar from './containers/navBar';
+import About from './containers/about'
 import Content from './containers/contentContainer';
 import EventList from './components/eventList';
 import ContentContainer from './containers/contentContainer';
-
 const EVENT_URL = 'http://localhost:3000/events'
 const ORG_URL = 'http://localhost:3000/organizations'
 
@@ -91,32 +91,18 @@ class App extends React.Component {
     const events = this.eventList()
     return ( 
       <div className="App">
-        {/* <Router>
-          <NavBar/>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/eventlist" component={EventList}/>
-        </Router> */}
         {this.state.isLoading
         ? <h4> Loading... </h4>
         :
-        <div>
-          <ContentContainer 
-            event={this.state.event} 
-            events={this.state.events} 
-            organizations={this.state.organizations}
-            fetchEvents={this.fetchEvents}/>
-        </div>
-        }
         <Router>
           <NavBar handleStateChange={this.handleStateChanges} />
           <Route exact path="/home" component={() => <ContentContainer event={this.state.event} events={this.state.events} organizations={this.state.organizations} fetchEvents={this.fetchEvents}/>} />
           <Route exact path="/login" component={() => <Login handleStateChange={this.handleStateChanges} />} />
           <Route exact path="/signup" component={() => <Signup orgs={this.state.organizations} />} />
           <Route exact path="/dashboard" component={() => this.state.token ? <Dashboard orgs={this.state.organizations} events={events} handleStateChange={this.handleStateChanges} sort={this.state.sort} user={this.state.user} /> : <Redirect to='/login'/>} />
+          <Route exact path="/about" component={About}/>
         </Router>
+        }
       </div>
      );
   }
