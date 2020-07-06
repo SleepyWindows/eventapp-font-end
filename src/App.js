@@ -96,11 +96,10 @@ class App extends React.Component {
         :
         <Router>
           <NavBar/>
-          <Route exact path="/" component={Login} />
+          <Route exact path="/home" component={() => <ContentContainer event={this.state.event} events={this.state.events} organizations={this.state.organizations} fetchEvents={this.fetchEvents}/>} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={() => <Signup orgs={this.state.organizations} />} />
           <Route exact path="/dashboard" component={() => <Dashboard orgs={this.state.organizations} events={events} handleSort={this.handleSort} sort={this.state.sort} />} />
-          <Route exact path="/eventlist" component={() => <ContentContainer event={this.state.event} events={this.state.events} organizations={this.state.organizations} fetchEvents={this.fetchEvents}/>}/>
         </Router>
         }
       </div>
