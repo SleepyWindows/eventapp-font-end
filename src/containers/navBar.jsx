@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
     Menu,
-    Input
+    Input,
+    Icon
 } from 'semantic-ui-react'
 
 class NavBar extends Component {
@@ -36,8 +37,10 @@ class NavBar extends Component {
                 active={activeItem === 'about'}
                 onClick={this.handleItemClick}
                 />
-                <Menu.Item position='right'><img src={this.props.avi} width='100px' height='30px' alt=''/></Menu.Item>
                 <Menu.Menu position='right'>
+                <Menu.Item>
+                    <Icon name='address card'/>
+                </Menu.Item>
                 <Menu.Item>
                     <Input icon='search' placeholder='Search...' />
                 </Menu.Item>
