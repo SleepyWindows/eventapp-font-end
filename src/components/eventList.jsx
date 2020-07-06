@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
-// import EventDetail from './eventDetail';
+import { ImageGroup } from 'semantic-ui-react';
+import { Image, Item } from "semantic-ui-react";
+import { Table } from 'semantic-ui-react'
+
 
 class EventList extends Component {
   // state = {  }
 
   render() { 
     return (
+  
       <div>
         {this.props.events.map(event => 
-          <div onClick={() => this.props.changeEventDetail(event)}>
-            <h3>{event.title}</h3>
-            <img src={event.image} alt='' height='100px' width='100px'/>
-            <p>{event.description}</p>
-          </div>
+        <Item.Group postions='right'>
+        <Item onClick={() => this.props.changeEventDetail(event)}>
+          <Item.Image size='small' src={event.image} />
+          <Item.Content>
+            <Item.Header as='a'>{event.title}</Item.Header>
+            <Item.Description>{event.description}</Item.Description>
+          </Item.Content>
+        </Item>
+        </Item.Group>
         )}
       </div>
     );
