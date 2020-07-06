@@ -5,8 +5,8 @@ import Login from './components/auth/login.js';
 import Signup from './components/auth/signup';
 import Dashboard from './components/dashboard'
 import NavBar from './containers/navBar';
-import Content from './containers/contentContainer';
-import EventList from './components/eventList';
+// import Content from './containers/contentContainer';
+// import EventList from './components/eventList';
 import ContentContainer from './containers/contentContainer';
 const EVENT_URL = 'http://localhost:3000/events'
 const ORG_URL = 'http://localhost:3000/organizations'

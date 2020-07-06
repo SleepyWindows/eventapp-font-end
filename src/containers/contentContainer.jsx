@@ -20,12 +20,10 @@ class ContentContainer extends Component {
 
 
     render() { 
-        console.log("ContentContainer Event", this.props.events)
-        console.log("ContentContainer Orgs", this.props.organizations)
         return (
             <div>
                 <Banner />
-                <EventDetail event={this.props.events[0]} key={this.props.events[0].id}/>
+                <EventDetail event={this.state.eventDetail} key={this.state.eventDetail.id}/>
                 <EventTimeline />
                 <ChatBot />
                 <EventList events={this.props.events} changeEventDetail={this.changeEventDetail}/>

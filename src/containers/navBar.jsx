@@ -17,8 +17,8 @@ class NavBar extends Component {
         return ( 
         <div>
             <Menu pointing>
-            <Link to="/home">
                 <Menu.Item>{this.props.name}</Menu.Item>
+            <Link to="/home">
                 <Menu.Item
                 name='Home'
                 active={activeItem === 'home'}
