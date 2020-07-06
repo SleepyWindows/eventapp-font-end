@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-// import { BrowserRouter as Router, Route} from 'react-router-dom';
-// import NavBar from './containers/navBar';
-// import Login from './components/auth/login';
-// import Signup from './components/auth/signup';
-// import Dashboard from './components/dashboard'
-// import EventList from './components/eventList';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+import Login from './components/auth/login.js';
+import Signup from './components/auth/signup';
+import Dashboard from './components/dashboard'
+import NavBar from './containers/navBar';
+import Content from './containers/contentContainer';
+import EventList from './components/eventList';
 import ContentContainer from './containers/contentContainer';
-
 const EVENT_URL = 'http://localhost:3000/events'
 const ORG_URL = 'http://localhost:3000/organizations'
 
@@ -17,7 +17,10 @@ class App extends React.Component {
     searchTerm: '',
     eventDetail: null,
     isLoading: true,
-    organizations: []
+    organizations: [],
+    sort: "",
+    token: "",
+    user: {}
   }
 
   componentDidMount() {
@@ -26,7 +29,12 @@ class App extends React.Component {
   }
 
   fetchEvents = () => {
-    fetch(EVENT_URL)
+    fetch(EVENT_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`
+      }
+    })
     .then(res => res.json())
     .then(events => {
       this.setState({
@@ -38,7 +46,12 @@ class App extends React.Component {
   }
 
   fetchOrganization = () => {
-    fetch(ORG_URL)
+    fetch(ORG_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.token}`
+      }
+    })
     .then(res => res.json())
     .then(orgs => {
       this.setState({
@@ -46,43 +59,6 @@ class App extends React.Component {
         isLoading: false
       })
     })
-  }
-
-import { BrowserRouter as Router, Route} from 'react-router-dom';
-import Login from './components/auth/login.js';
-import Signup from './components/auth/signup';
-import Dashboard from './components/dashboard'
-import NavBar from './containers/navBar';
-import Content from './containers/contentContainer';
-import EventList from './components/eventList';
-
-
-class App extends React.Component {
-  state = {
-    orgs: [],
-    events: [],
-    sort: "",
-    token: "",
-    user: {}
-  }
-
-  componentDidMount() {
-    fetch('http://localhost:3000/organizations', {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.token}`
-      }
-    })
-      .then(res => res.json())
-      .then(result => this.setState({orgs: result}))
-    fetch('http://localhost:3000/events', {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.token}`
-      }
-    })
-      .then(res => res.json())
-      .then(result => this.setState({events: result}))
   }
 
   handleSort = (data) => {
@@ -115,33 +91,18 @@ class App extends React.Component {
     const events = this.eventList()
     return ( 
       <div className="App">
-        {/* <Router>
-          <NavBar/>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/eventlist" component={EventList}/>
-        </Router> */}
         {this.state.isLoading
         ? <h4> Loading... </h4>
         :
-        <div>
-          <ContentContainer 
-            event={this.state.event} 
-            events={this.state.events} 
-            organizations={this.state.organizations}
-            fetchEvents={this.fetchEvents}/>
-        </div>
-        }
         <Router>
           <NavBar/>
           <Route exact path="/" component={Login} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={() => <Signup orgs={this.state.orgs} />} />
-          <Route exact path="/dashboard" component={() => <Dashboard orgs={this.state.orgs} events={events} handleSort={this.handleSort} sort={this.state.sort} />} />
-          <Route exact path="/eventlist" component={EventList}/>
+          <Route exact path="/signup" component={() => <Signup orgs={this.state.organizations} />} />
+          <Route exact path="/dashboard" component={() => <Dashboard orgs={this.state.organizations} events={events} handleSort={this.handleSort} sort={this.state.sort} />} />
+          <Route exact path="/eventlist" component={() => <ContentContainer event={this.state.event} events={this.state.events} organizations={this.state.organizations} fetchEvents={this.fetchEvents}/>}/>
         </Router>
+        }
       </div>
      );
   }

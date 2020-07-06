@@ -6,8 +6,6 @@ import { Redirect } from 'react-router-dom'
 
 class Dashboard extends Component {
   render() { 
-    return ( <h1>Dashboard</h1> );
-=======
     const options = [
       { key: 'c', text: 'category', value: 'category'},
       { key: 'd', text: 'date', value: 'date'},
