@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, withRouter} from 'react-router-dom';
 import Login from './components/auth/login.js';
 import Signup from './components/auth/signup';
 import Dashboard from './components/dash/dashboard'
@@ -87,6 +87,24 @@ class App extends React.Component {
       })
   }
 
+  deleteEvent = (eventId, history) => {
+    // debugger
+    fetch(EVENT_URL + `/${eventId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${this.state.token}`
+      }
+    })
+    .then(() => {
+      this.fetchEvents()
+      this.fetchUser()
+      // return <Redirect to='/dashboard'/>
+      // this.props.history.push('/dashboard')
+      history.push('/dashboard');
+    })
+  }
+
   fetchOrganization = () => {
     fetch(ORG_URL, {
       method: "GET",
@@ -138,13 +156,26 @@ class App extends React.Component {
         : <Router>
             <NavBar handleStateChange={this.handleStateChanges} />
             <Banner eventName={this.state.eventName}/>
+            <Route exact path="/" component={() =>
+              <ContentContainer 
+                event={this.state.event} 
+                events={this.state.events}
+                filterEvents={events}  
+                organizations={this.state.organizations} 
+                addEventToUser={this.addEventToUser}
+                handleSearch={this.handleSearch}
+                sort={this.state.sort}
+                filter={this.state.filter}
+                user={this.state.user}
+                handleStateChange={this.handleStateChanges}
+                />} />
             <Route exact path="/home" component={() =>
               <ContentContainer 
                 event={this.state.event} 
                 events={this.state.events}
                 filterEvents={events}  
                 organizations={this.state.organizations} 
-                fetchEvents={this.fetchEvents}
+                addEventToUser={this.addEventToUser}
                 handleSearch={this.handleSearch}
                 sort={this.state.sort}
                 filter={this.state.filter}
@@ -159,7 +190,12 @@ class App extends React.Component {
                 orgs={this.state.organizations} />} />
             <Route exact path="/dashboard" component={() => this.state.token ? <Dashboard handleStateChange={this.handleStateChanges} orgs={this.state.organizations} user={this.state.user} eventDetail={this.state.eventDetail} /> : <Redirect to='/login'/>} />
             <Route exact path="/about" component={About}/>
-            <Route exact path="/event/:id" component={() => <EventContainer handleStateChange={this.handleStateChanges} eventDetail={this.state.eventDetail} user={this.state.user} />}/>
+            <Route exact path="/event/:id" component={() => 
+              <EventContainer 
+                handleStateChange={this.handleStateChanges} 
+                eventDetail={this.state.eventDetail} 
+                user={this.state.user} 
+                deleteEvent={this.deleteEvent}/>}/>
           </Router>
         }
       </div>
@@ -167,4 +203,4 @@ class App extends React.Component {
   }
 }
  
-export default App;
+export default withRouter(App);

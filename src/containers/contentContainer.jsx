@@ -50,7 +50,7 @@ class ContentContainer extends Component {
         return (
             <div>
                 <Container style={{paddingTop: "30px"}} textAlign='center'>
-                <strong>Sort by:</strong>
+                <strong>Sort by: </strong> 
                 <label>
                 <input type="radio" value="Alphabetically" checked={this.props.sort === "Alphabetically"} onChange={(e) => this.props.handleStateChange("sort", e.target.value)}/>
                 Alphabetically
@@ -78,7 +78,7 @@ class ContentContainer extends Component {
                 </div>
                     <Grid>
                         <Grid.Column width={5}>
-                        <EventDetail event={this.state.eventDetail} key={this.state.eventDetail.id} />
+                        <EventDetail event={this.state.eventDetail} key={this.state.eventDetail.id} user={this.props.user} addEventToUser={this.props.addEventToUser} />
                         </Grid.Column>
                         <Grid.Column width={7}>
                         <EventList events={events} changeEventDetail={this.changeEventDetail}/>
