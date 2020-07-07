@@ -27,7 +27,7 @@ class Login extends Component {
             .then(res => res.json())
             .then(userInfo => {
                 localStorage.token = userInfo.token
-                localStorage.setItem("user", JSON.stringify({username: userInfo.username, role: userInfo.role, events: userInfo.events, token: userInfo.token}))
+                localStorage.setItem("user", JSON.stringify({username: userInfo.username, role: userInfo.role, events: userInfo.events, token: userInfo.token, id: userInfo.id}))
                 this.props.handleStateChange("token", userInfo.token)
                 this.props.handleStateChange("user", userInfo)
                 this.props.history.push('/dashboard')
@@ -36,7 +36,8 @@ class Login extends Component {
     
     render() { 
         return (
-            <Grid className="auth-main" style={{height: '100vh'}}>
+            <div className="auth-main">
+            <Grid>
              <div className="auth-content">
                 <div className="auth-card">
                     <Segment stacked>
@@ -81,6 +82,7 @@ class Login extends Component {
                 </div>
              </div>  
             </Grid>
+            </div>
         );
     };
 };

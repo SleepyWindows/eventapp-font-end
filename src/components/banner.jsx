@@ -9,10 +9,9 @@ class Banner extends Component {
     state = {  }
     render() { 
         return ( 
-        <Container fluid size='tiny'>
-            {/* image may need to be passed as a prop to allow conditional rendering. If no photo is chosen then default photo will be used instead with event name listed at image center. */}
-            <Image centered size='huge' src={'./seyedeh-hamideh-kazemi-PFUqfNsorJM-unsplash.jpg'}/>
-            <Header  as='h1'>{this.props.name}</Header>
+        <Container className="banner" style={{ objectFit: 'cover',  width:'100vw'}}>
+            <Header  className='banner-title' as='h1' style={{position: 'absolute', transform: 'translate(0, 50px)', color: 'white', content: 'center',  width: '100%', fontSize: '100px'}}>{this.props.eventName}</Header> 
+            <Image centered size='huge' src={'./seyedeh-hamideh-kazemi-PFUqfNsorJM-unsplash.jpg'} style={{ objectFit: 'cover', height: '200px', width: '100vw', transformOrigin: 'center' }}/>
         </Container> 
         )
     }

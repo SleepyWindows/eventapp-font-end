@@ -3,21 +3,29 @@ import './App.css';
 import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import Login from './components/auth/login.js';
 import Signup from './components/auth/signup';
-import Dashboard from './components/dashboard'
+import Dashboard from './components/dash/dashboard'
 import NavBar from './containers/navBar';
 import About from './containers/about'
+import Banner from './components/banner.jsx'
 import ContentContainer from './containers/contentContainer';
+import EventContainer from './containers/eventContainer'
+
+
+
 const EVENT_URL = 'http://localhost:3000/events'
 const ORG_URL = 'http://localhost:3000/organizations'
+const TICKET_URL = 'http://localhost:3000/tickets'
+const USER_URL = 'http://localhost:3000/users'
 
 class App extends React.Component {
   state = { 
     events: [],
-    searchTerm: '',
     eventDetail: null,
+    eventName: 'ConnectUs',
     isLoading: true,
     organizations: [],
     sort: "",
+    filter: "Home",
     token: localStorage.token,
     user: JSON.parse(localStorage.getItem("user"))
   }
@@ -42,6 +50,41 @@ class App extends React.Component {
         isLoading: false
       })
     })
+  }
+
+  fetchUser = () => {
+    fetch(USER_URL + `/${this.state.user.id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.state.token}`
+      }
+    })
+    .then(res => res.json())
+    .then(userInfo => {
+      localStorage.setItem("user", JSON.stringify({username: userInfo.username, role: userInfo.role, events: userInfo.events, token: this.state.token, id: userInfo.id}))
+      this.setState({
+        user: JSON.parse(localStorage.getItem("user"))
+      })
+    })
+  }
+
+  addEventToUser = (eventId, userId) => {
+    fetch(TICKET_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accepts": "application/json",
+        Authorization: `Bearer ${this.state.token}`
+      },
+      body: JSON.stringify({
+        event_id: eventId,
+        user_id: userId
+      })
+    })
+      .then(res => res.json())
+      .then(result => {
+        this.fetchUser()
+      })
   }
 
   fetchOrganization = () => {
@@ -72,15 +115,14 @@ class App extends React.Component {
       return null
     } else {
       let sorted = [...this.state.events].filter(event => event.public === true)
+      if (this.state.filter !== "Home") {
+        sorted = sorted.filter(event => event.category === this.state.filter)
+      }
       switch (this.state.sort) {
-        case "alphabetically":
-          // return sorted = sorted.sort((a, b) => {if(a.title < b.title) {return -1} else if (a.title > b.title) {return 1} else {return 0}})
+        case "Alphabetically":
           return sorted = sorted.sort((a, b) => a.title.localeCompare(b.title))
-        case "date":
+        case "Date":
           return sorted = sorted.sort((a, b) => {return a.date - b.date})
-        case "category":
-          // return sorted = sorted.sort((a, b) => {if(a.category < b.category) {return -1} else if (a.category > b.category) {return 1} else {return 0}})
-          return sorted = sorted.sort((a, b) => a.category.localeCompare(b.category))
         default: 
           return sorted
       }
@@ -95,28 +137,29 @@ class App extends React.Component {
         ? <h4> Loading... </h4>
         : <Router>
             <NavBar handleStateChange={this.handleStateChanges} />
+            <Banner eventName={this.state.eventName}/>
             <Route exact path="/home" component={() =>
               <ContentContainer 
                 event={this.state.event} 
-                events={this.state.events} 
+                events={this.state.events}
+                filterEvents={events}  
                 organizations={this.state.organizations} 
-                fetchEvents={this.fetchEvents}/>} />
+                fetchEvents={this.fetchEvents}
+                handleSearch={this.handleSearch}
+                sort={this.state.sort}
+                filter={this.state.filter}
+                user={this.state.user}
+                handleStateChange={this.handleStateChanges}
+                />} />
             <Route exact path="/login" component={() => 
               <Login 
                 handleStateChange={this.handleStateChanges} />} />
             <Route exact path="/signup" component={() => 
               <Signup 
                 orgs={this.state.organizations} />} />
-            <Route exact path="/dashboard" component={() => 
-              this.state.token 
-              ? <Dashboard 
-                  orgs={this.state.organizations} 
-                  events={events} 
-                  handleStateChange={this.handleStateChanges} 
-                  sort={this.state.sort} 
-                  user={this.state.user} /> 
-              : <Redirect to='/login'/>} />
+            <Route exact path="/dashboard" component={() => this.state.token ? <Dashboard handleStateChange={this.handleStateChanges} orgs={this.state.organizations} user={this.state.user} eventDetail={this.state.eventDetail} /> : <Redirect to='/login'/>} />
             <Route exact path="/about" component={About}/>
+            <Route exact path="/event/:id" component={() => <EventContainer handleStateChange={this.handleStateChanges} eventDetail={this.state.eventDetail} user={this.state.user} />}/>
           </Router>
         }
       </div>
