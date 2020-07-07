@@ -13,7 +13,6 @@ class NavBar extends Component {
     handleLogout = () => {
         localStorage.clear()
         this.props.handleStateChange("token", null)
-        this.props.history.push('/home')
     }
     //  These menu options will need to point to methods in app.js to display the appropriate content.
     handleItemClick = (e, {name}) => this.setState({activeItem: name})
@@ -53,7 +52,7 @@ class NavBar extends Component {
                     name='Logout'
                     active={activeItem === 'Logout'}
                     onClick={this.handleLogout}/></Link> 
-                : <Link to=""><Menu.Item
+                : <Link to="/login"><Menu.Item
                     name='Login'
                     active={activeItem === 'Login'}
                     onClick={this.handleItemClick}
