@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Card, Image, Icon, Button, Modal, Header, Form, Container, Comment } from 'semantic-ui-react'
+import { Grid, Card, Image, Icon, Button, Header, Container, Comment } from 'semantic-ui-react'
 import moment from 'moment'
 import Map from '../components/map';
 import ModalForm from '../components/dash/modalForm';
@@ -77,7 +77,7 @@ class EventContainer extends Component {
             </Grid.Row>
             <Comment.Group>
                 <Header icon="announcement" as='h3'>Announcements</Header>
-                {console.log(announcements)}
+                {/* {console.log(announcements)} */}
                 {announcements.map(announce => {
                     return <Comment>
                         <Comment.Avatar src={<Icon name="user"/>}/>

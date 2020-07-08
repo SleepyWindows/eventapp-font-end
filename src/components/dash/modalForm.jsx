@@ -26,7 +26,7 @@ class ModalForm extends Component {
         let options2 = []
         this.props.orgs.map(org => {
             let o = {key: org.id, text: org.name, value: org.id}
-            options2.push(o)
+            return options2.push(o)
         })
         return (
             <Modal

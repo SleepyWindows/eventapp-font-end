@@ -31,7 +31,7 @@ class ContentContainer extends Component {
         let options = []
         this.props.events.map(event => {
             let e = {key: event.id, text: event.category, value: event.category}
-            options.push(e)
+            return options.push(e)
         })
 
         const distinctOptions = [{key: "Home", text: "Home", value: "Home"}];
@@ -76,10 +76,13 @@ class ContentContainer extends Component {
                     <i className="search icon" />
                     </div>
                 </div>
-                {this.props.user.role === "Attendee" ? <p onClick={(e) => console.log(e.target)}>Event not listed?</p> : null} 
+                {this.props.user && this.props.user.role === "Attendee" ? <p onClick={(e) => console.log(e.target)}>Event not listed?</p> : null} 
                     <Grid>
                         <Grid.Column width={5}>
-                        <EventDetail user={this.props.user} event={this.state.eventDetail} key={this.state.eventDetail.id} addEventToUser={this.props.addEventToUser} />
+                        {this.state.eventDetail 
+                        ? <EventDetail user={this.props.user} event={this.state.eventDetail} key={this.state.eventDetail.id} addEventToUser={this.props.addEventToUser} /> 
+                        : null}
+
                         </Grid.Column>
                         <Grid.Column width={7}>
                         <EventList events={events} changeEventDetail={this.changeEventDetail}/>
