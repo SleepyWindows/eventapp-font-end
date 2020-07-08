@@ -69,12 +69,12 @@ class Login extends Component {
                          onChange={this.handleChange}
                         />
 
-                        <Button style={{background: "#FF6600"}} fluid size="huge">
+                        <Button style={{background: "#FE8E36"}} fluid size="huge">
                             Login
                         </Button>
         
                         <Message size="small">
-                            <Link style={{color: '#FF6600'}} to="/signup">Not Registered?</Link>
+                            <Link style={{color: '#FE8E36'}} to="/signup">Not Registered?</Link>
                         </Message>
 
                      </Form>
