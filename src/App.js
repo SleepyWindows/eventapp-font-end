@@ -99,8 +99,6 @@ class App extends React.Component {
     .then(() => {
       this.fetchEvents()
       this.fetchUser()
-      // return <Redirect to='/dashboard'/>
-      // this.props.history.push('/dashboard')
       history.push('/dashboard');
     })
   }
