@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect, withRouter} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import Login from './components/auth/login.js';
 import Signup from './components/auth/signup';
 import Dashboard from './components/dash/dashboard'
@@ -118,9 +118,6 @@ class App extends React.Component {
       })
   }
 
-  addEventToUser = (event_id, user_id) => {
-    fetch(TICKET_URL, {
-      method: "POST",
   deleteEvent = (eventId, history) => {
     // debugger
     fetch(EVENT_URL + `/${eventId}`, {
@@ -139,9 +136,9 @@ class App extends React.Component {
     })
   }
 
-  fetchOrganization = () => {
-    fetch(ORG_URL, {
-      method: "GET",
+  addEventToUser = (event_id, user_id) => {
+    fetch(TICKET_URL, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Accepts": "application/json",
@@ -287,6 +284,7 @@ class App extends React.Component {
               eventDetail={this.state.eventDetail} 
               user={this.state.user} 
               orgs={this.state.organizations} 
+              deleteEvent={this.deleteEvent}
             />}/>
             <Route exact path="/profile" component={() => 
             this.state.token ? 
@@ -303,4 +301,4 @@ class App extends React.Component {
   }
 }
  
-export default withRouter(App);
+export default App;

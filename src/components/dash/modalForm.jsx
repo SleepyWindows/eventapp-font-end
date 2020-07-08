@@ -18,10 +18,10 @@ class ModalForm extends Component {
   
     render() {
         const options = [
-            {key: 'p', text: "cancel", value: 'cancel'},
-            {key: 'p', text: "future", value: 'future'},
-            {key: 'p', text: "past", value: 'past'},
-            {key: 'p', text: "present", value: 'present'}
+            {key: 'c', text: "cancel", value: 'cancel'},
+            {key: 'f', text: "future", value: 'future'},
+            {key: 'pa', text: "past", value: 'past'},
+            {key: 'pr', text: "present", value: 'present'}
         ]
         let options2 = []
         this.props.orgs.map(org => {
