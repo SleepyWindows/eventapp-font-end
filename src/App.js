@@ -10,6 +10,7 @@ import Banner from './components/banner.jsx'
 import ContentContainer from './containers/contentContainer';
 import EventContainer from './containers/eventContainer';
 import UserProfile from './components/userprofile'
+import QRCode from './components/qrCode.jsx'
 
 
 
@@ -167,8 +168,7 @@ class App extends React.Component {
           username: user.username,
           contact: user.contact,
           supporter: user.supporter,
-          age: user.age,
-          supporter: user.supporter
+          age: user.age
         })
     }
     fetch(`http://localhost:3000/users/${id}`, options)
@@ -192,8 +192,8 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(result => {
-        console.log(result)
-        // this.fetchEvents()
+        // console.log(result)
+        this.fetchEvents()
       })
   }
 
@@ -205,7 +205,7 @@ class App extends React.Component {
   
   eventList = () => {
     // console.log(this.state.events.error == "Please Login")
-    if (this.state.events.error === "Please Login") {
+    if (this.state.events.error) {
       return null
     } else {
       let sorted = [...this.state.events].filter(event => event.public === true)
@@ -231,7 +231,7 @@ class App extends React.Component {
         ? <h4> Loading... </h4>
         : <Router>
             <NavBar handleStateChange={this.handleStateChanges} />
-            <Banner eventName={this.state.eventName}/>
+            <Banner eventName='ConnectUs'/>
             <Route exact path="/" component={() =>
               <ContentContainer 
                 event={this.state.event} 

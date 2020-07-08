@@ -26,7 +26,7 @@ class AnnounceForm extends Component {
     render() {
         return (
             <Modal
-                trigger={<Button style={{background: "#86abba", marginTop: "5px"}} size="small" onClick={this.handleOpen}>Add Announcement</Button>}
+                trigger={<Button style={{background: "#FE8E36", marginTop: "5px"}} size="small" onClick={this.handleOpen}>Add Announcement</Button>}
                 open={this.state.modalOpen}
                 onClose={this.handleClose}
                 size='small'

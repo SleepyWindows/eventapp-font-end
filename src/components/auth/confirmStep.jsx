@@ -21,15 +21,15 @@ export default class infoStep extends Component {
                      <h4>Supporter: {supporter.join(' , ')}</h4>
                      <h4>Role: {role}</h4>
                         
-                     <Button onClick={this.props.prevStep} style={{background: "#FF6600", "marginTop": "20px"}} size="huge">
+                     <Button onClick={this.props.prevStep} style={{background: "#FE8E36", "marginTop": "20px"}} size="huge">
                         Previous
                      </Button>
-                     <Button onClick={this.props.submit} style={{background: "#FF6600", "marginTop": "20px"}} size="huge">
+                     <Button onClick={this.props.submit} style={{background: "#FE8E36", "marginTop": "20px"}} size="huge">
                         Submit
                      </Button>
         
                      <Message size="small">
-                        <Link style={{color: '#FF6600'}} to="/login">Already Registered?</Link>
+                        <Link style={{color: '#FE8E36'}} to="/login">Already Registered?</Link>
                      </Message>
                     </Segment>
                  </div>
