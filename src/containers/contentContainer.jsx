@@ -78,7 +78,7 @@ class ContentContainer extends Component {
                 </div>
                     <Grid>
                         <Grid.Column width={5}>
-                        <EventDetail event={this.state.eventDetail} key={this.state.eventDetail.id} />
+                        <EventDetail user={this.props.user} event={this.state.eventDetail} key={this.state.eventDetail.id} addEventToUser={this.props.addEventToUser} />
                         </Grid.Column>
                         <Grid.Column width={7}>
                         <EventList events={events} changeEventDetail={this.changeEventDetail}/>

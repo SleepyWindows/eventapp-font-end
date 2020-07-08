@@ -8,7 +8,7 @@ export default class infoStep extends Component {
             { key: 'a', text: 'Attendee', value: 'Attendee'},
             { key: 'o', text: 'Organizer', value: 'Organizer'}
         ]
-        const { contact, age, supporter, role, secret_code } = this.props.values
+        const { contact, age, supporter, role } = this.props.values
         return (
             <Grid className="auth-main" style={{height: '100vh'}}>
              <div className="auth-content">
@@ -66,22 +66,6 @@ export default class infoStep extends Component {
                          value={role}
                          onChange={(e, data) => this.props.handleChange(data.name, data.value)}
                         />
-                        
-                        {role === "Organizer" ?
-                        <div> 
-                        <label className="label-input" >Secret Code</label>
-                        <Form.Input
-                         fluid
-                         icon="key"
-                         iconPosition="left"
-                         name="secret_code"
-                         placeholder="5hfk8!"
-                         className="auth-input-field"
-                         value={secret_code}
-                         onChange={(e) => this.props.handleChange(e.target.name, e.target.value)}
-                        />
-                        </div> : null}
-                        
                         <Button onClick={this.props.prevStep} style={{background: "#FF6600", "marginTop": "20px"}} size="huge">
                             Previous
                         </Button>
