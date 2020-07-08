@@ -10,7 +10,6 @@ import Banner from './components/banner.jsx'
 import ContentContainer from './containers/contentContainer';
 import EventContainer from './containers/eventContainer';
 import UserProfile from './components/userprofile'
-import QRCode from './components/qrCode.jsx'
 
 
 

@@ -31,7 +31,7 @@ class ContentContainer extends Component {
         let options = []
         this.props.events.map(event => {
             let e = {key: event.id, text: event.category, value: event.category}
-            options.push(e)
+            return options.push(e)
         })
 
         const distinctOptions = [{key: "Home", text: "Home", value: "Home"}];
