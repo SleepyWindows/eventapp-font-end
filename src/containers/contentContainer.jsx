@@ -70,15 +70,16 @@ class ContentContainer extends Component {
                     style={{paddingTop: '5px', paddingBottom: '5px'}}
                     onChange={(e, data) => this.props.handleStateChange("filter", data.value)}
                     />
-                <div style={{paddingBottom: "20px"}} className="ui search">
+                <div style={{paddingBottom: "10px"}} className="ui search">
                     <div className="ui icon input">
                     <input className="prompt" value={this.state.searchTerm} onChange={(e) => this.setState({searchTerm: e.target.value})} />
                     <i className="search icon" />
                     </div>
                 </div>
+                {this.props.user.role === "Attendee" ? <p onClick={(e) => console.log(e.target)}>Event not listed?</p> : null} 
                     <Grid>
                         <Grid.Column width={5}>
-                        <EventDetail event={this.state.eventDetail} key={this.state.eventDetail.id} user={this.props.user} addEventToUser={this.props.addEventToUser} />
+                        <EventDetail user={this.props.user} event={this.state.eventDetail} key={this.state.eventDetail.id} addEventToUser={this.props.addEventToUser} />
                         </Grid.Column>
                         <Grid.Column width={7}>
                         <EventList events={events} changeEventDetail={this.changeEventDetail}/>

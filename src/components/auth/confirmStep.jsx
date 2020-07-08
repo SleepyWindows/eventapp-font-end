@@ -5,7 +5,7 @@ import { Grid, Segment, Header, Button, Message } from 'semantic-ui-react';
 export default class infoStep extends Component {
     state = {  }
     render() { 
-        const {username, contact, age, supporter, role, secret_code } = this.props.values
+        const {username, contact, age, supporter, role } = this.props.values
         return (
             <Grid className="auth-main" style={{height: '100vh'}}>
              <div className="auth-content">
@@ -20,8 +20,6 @@ export default class infoStep extends Component {
                      <h4>Age: {age}</h4>
                      <h4>Supporter: {supporter.join(' , ')}</h4>
                      <h4>Role: {role}</h4>
-                     {role === "Organizer" ? <div><h4>Secret Code: {secret_code}</h4><p>Write this code down and keep it in a safe place</p></div> : null}
-
                         
                      <Button onClick={this.props.prevStep} style={{background: "#FF6600", "marginTop": "20px"}} size="huge">
                         Previous

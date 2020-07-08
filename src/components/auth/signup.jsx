@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserStep from './userStep';
 import InfoStep from './infoStep';
 import ConfirmStep from './confirmStep';
+import { withRouter } from 'react-router-dom'
 
 class Signup extends Component {
 
@@ -13,8 +14,7 @@ class Signup extends Component {
     contact: '',
     age: "",
     supporter: [],
-    role: '',
-    secret_code: ''
+    role: ''
   }
 
   nextStep = () => {
@@ -62,22 +62,21 @@ class Signup extends Component {
             password_confirmation: this.state.password_confirmation,
             contact: this.state.contact,
             age: this.state.age,
-            supporter: this.state.supporter.join(' , '),
-            role: this.state.role,
-            secret_code: this.state.secret_code ? this.state.secret_code : "null"
+            supporter: this.state.supporter.join(' / '),
+            role: this.state.role
         })
     }
     fetch('http://localhost:3000/signup', options)
         .then(res => res.json())
         .then(userInfo => {
-            console.log(userInfo)
+          this.props.history.push('/login')
             // localStorage.token = userInfo.token
         })
   }
 
   render() { 
-    const { username, password, password_confirmation, contact, age, supporter, role, secret_code} = this.state;
-    const values = { username, password, password_confirmation, contact, age, supporter, role, secret_code}
+    const { username, password, password_confirmation, contact, age, supporter, role} = this.state;
+    const values = { username, password, password_confirmation, contact, age, supporter, role}
     switch(this.state.step) {
       case 1:
         return <UserStep
@@ -109,4 +108,4 @@ class Signup extends Component {
   }
 }
  
-export default Signup;
+export default withRouter(Signup);

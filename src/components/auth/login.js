@@ -27,7 +27,7 @@ class Login extends Component {
             .then(res => res.json())
             .then(userInfo => {
                 localStorage.token = userInfo.token
-                localStorage.setItem("user", JSON.stringify({username: userInfo.username, role: userInfo.role, events: userInfo.events, token: userInfo.token, id: userInfo.id}))
+                localStorage.setItem("user", JSON.stringify({...userInfo}))
                 this.props.handleStateChange("token", userInfo.token)
                 this.props.handleStateChange("user", userInfo)
                 this.props.history.push('/dashboard')

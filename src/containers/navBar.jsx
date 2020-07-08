@@ -45,7 +45,9 @@ class NavBar extends Component {
                 </Link>
                 <Menu.Menu position='right'>
                 <Menu.Item>
+                    <Link style={{color: "#373737"}} to="/profile">
                     <Icon size="big" name='address card'/>
+                    </Link>
                 </Menu.Item>
                 {localStorage.token 
                 ? <Link to=""><Menu.Item
