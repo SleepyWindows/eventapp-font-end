@@ -50,7 +50,7 @@ class ContentContainer extends Component {
         return (
             <div>
                 <Container style={{paddingTop: "30px"}} textAlign='center'>
-                <strong>Sort by:</strong>
+                <strong>Sort by: </strong> 
                 <label>
                 <input type="radio" value="Alphabetically" checked={this.props.sort === "Alphabetically"} onChange={(e) => this.props.handleStateChange("sort", e.target.value)}/>
                 Alphabetically

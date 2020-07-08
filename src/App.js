@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, withRouter} from 'react-router-dom';
 import Login from './components/auth/login.js';
 import Signup from './components/auth/signup';
 import Dashboard from './components/dash/dashboard'
@@ -121,6 +121,27 @@ class App extends React.Component {
   addEventToUser = (event_id, user_id) => {
     fetch(TICKET_URL, {
       method: "POST",
+  deleteEvent = (eventId, history) => {
+    // debugger
+    fetch(EVENT_URL + `/${eventId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+        Authorization: `Bearer ${this.state.token}`
+      }
+    })
+    .then(() => {
+      this.fetchEvents()
+      this.fetchUser()
+      // return <Redirect to='/dashboard'/>
+      // this.props.history.push('/dashboard')
+      history.push('/dashboard');
+    })
+  }
+
+  fetchOrganization = () => {
+    fetch(ORG_URL, {
+      method: "GET",
       headers: {
         "Content-Type": "application/json",
         "Accepts": "application/json",
@@ -282,4 +303,4 @@ class App extends React.Component {
   }
 }
  
-export default App;
+export default withRouter(App);
