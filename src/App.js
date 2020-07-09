@@ -286,11 +286,9 @@ class App extends React.Component {
             <Route exact path="/dashboard" component={() => 
               this.state.token ? 
               <Dashboard 
+                {...this.state}
                 handleStateChange={this.handleStateChanges} 
-                events={this.state.events} 
                 orgs={this.state.organizations} 
-                user={this.state.user} 
-                eventDetail={this.state.eventDetail} 
                 createEvent={this.createEvent}
                 createRoom={this.createRoom} 
               /> : <Redirect to='/login'/>} />
@@ -298,12 +296,9 @@ class App extends React.Component {
             <Route exact path="/event/:id" component={() => 
             <EventContainer 
               {...this.state}
-              chatRoom={this.state.chatRoom}
-              events={this.state.events}  
               createAnnouncement={this.createAnnouncement} 
               editEvent={this.editEvent} 
               handleStateChange={this.handleStateChanges} 
-              eventDetail={this.state.eventDetail} 
               orgs={this.state.organizations} 
               deleteEvent={this.deleteEvent}
             />}/>

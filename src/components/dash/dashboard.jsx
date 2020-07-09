@@ -3,6 +3,7 @@ import {Image, Header, Table } from 'semantic-ui-react'
 import moment from 'moment';
 import ModalForm from './modalForm'
 import { withRouter } from 'react-router-dom'
+import Cable from 'actioncable';
 
 class Dashboard extends Component {
     state = {
@@ -16,7 +17,8 @@ class Dashboard extends Component {
         image: '',
         stage: '',
         public: null,
-        organization_id: ''
+        organization_id: '',
+        cableInfo: null
     }
 
     handleChange = (key, value) => {
@@ -57,11 +59,17 @@ class Dashboard extends Component {
         })
     }
 
+    findOrganizer = () => {
+        let event = this.props.events.find(e => e.id === this.props.event.id)
+        let organizer = event.users.find(user => user.role === "Organizer")
+        this.props.handleStateChange("organizer", organizer)
+    }
+
     changeStateStuff = (event) => {
-        // console.log("working")
         this.props.handleStateChange("eventDetail", event)
         {this.props.user.role === "Attendee" ? this.props.createRoom(event.id) : this.setState({chatRoom: {}})}
         this.props.history.push(`/event/${event.id}`)
+        this.findOrganizer()
     }
   render() { 
     const { role} = this.props.user

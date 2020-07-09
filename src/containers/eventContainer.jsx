@@ -96,7 +96,7 @@ class EventContainer extends Component {
                 })}
             </Comment.Group>
             </Grid>
-            <ChatBot chatRoom={this.props.chatRoom} event={this.state.event} events={this.props.events} user={this.props.user}/>
+            <ChatBot organizer={this.props.organizer} handleChange={this.handleChange} chatRoom={this.props.chatRoom} event={this.state.event} events={this.props.events} user={this.props.user}/>
             </Container>
             </div>
         )

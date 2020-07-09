@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Widget, addResponseMessage, handleNewUserMessage } from 'react-chat-widget';
+import { Widget, addResponseMessage, addUserMessage } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
 import './chatbot.css';
 import Cable from 'actioncable';
@@ -10,17 +10,17 @@ import moment from 'moment';
 class ChatBot extends Component {
     constructor(props) {
         super(props);
-        this.state = {chatOpen: false, roomMessages: [], chatRoom: this.props.chatRoom, display: {display: 'none'}}
+        this.state = {chatOpen: false, roomMessages: [], chatRoom: this.props.chatRoom, display: {display: 'none'}, currentResponse: "Test"}
     }
 
-    findOrganizer = () => {
-        let event = this.props.events.find(e => e.id === this.props.event.id)
-        let organizer = event.users.find(user => user.role === "Organizer")
-        this.setState({
-            organizer: organizer,
-            event: event
-        })
-    }
+    // findOrganizer = () => {
+    //     let event = this.props.events.find(e => e.id === this.props.event.id)
+    //     let organizer = event.users.find(user => user.role === "Organizer")
+    //     this.setState({
+    //         organizer: organizer,
+    //         event: event
+    //     })
+    // }
 
     handleContent = (e) => {
         this.setState({
@@ -73,14 +73,16 @@ class ChatBot extends Component {
 
     componentDidMount() {
         // debugger
+        // this.findOrganizer()
         this.setState({
             chatRoom: this.props.chatRoom
         })
         this.setState({currentMessage: ''});
         //Add welcome message at the beginning
-        addResponseMessage("Hello! If you have any questions I am here to help");
-        let userId = 1;
-        this.findOrganizer()
+        this.props.user.role === "Attendee" ? this.getResponseMessage({content: "Hello! If you have any questions I am here to help", user_id: this.props.organizer.id}) : addUserMessage("Hello! If you have any questions I am here to help")
+        this.setState({
+            currentResponse: "Test"
+        })
         this.fetchChatRooms()
         this.createSocket();
     }
@@ -100,19 +102,18 @@ class ChatBot extends Component {
                 })
             )
     }
-    
 
     getResponseMessage(message) {
         //Make sure not to display own message in chat logs
         // console.log(message.user_id)
-        // console.log(this.state.organizer.id)
-        // console.log(this.props.user.id === this.state.organizer.id)
+        // console.log(this.props.organizer.id)
+        // console.log(this.props.user.id === this.props.organizer.id)
         if (this.state.currentMessage === message.content && this.props.role === "Attendee") {
             
           //Reset the current message to null and return empty string
           this.state.currentMessage = '';
           return '';
-        } else if (this.props.user.id === this.state.organizer.id || message.user_id === this.state.organizer.id) {
+        } else if (this.props.user.id === this.props.organizer.id || message.user_id === this.props.organizer.id) {
             if (this.props.user.role === "Organizer") {
                 this.setState({
                     roomMessages: [...this.state.roomMessages, message]
@@ -120,9 +121,14 @@ class ChatBot extends Component {
                 this.fetchChatRooms()
                 // this.handleRoomMessages()
             } else {
+                // console.log(message)
+                this.setState({
+                    currentResponse: message.content
+                })
                 //If it's not an own message, add to the chat log
-                
-                addResponseMessage(message.content);
+                if (this.state.currentResponse === message.content) {
+                    addResponseMessage(message.content);
+                }
             }
           //Reset the current message to null
           this.state.currentMessage = '';
@@ -131,27 +137,31 @@ class ChatBot extends Component {
     }
 
     createSocket() {
-        // let cable = Cable.createConsumer('http://localhost:9000/'+ 'cable');
-        let cable = Cable.createConsumer('http://localhost:3000/' + 'cable');
+        let cable = Cable.createConsumer('http://localhost:3000/'+ 'cable');
+        // let cable
+        // console.log(this.props.cableInfo)
+        // cable = this.props.cableInfo
+        // console.log(cable)
+        
         let userId = this.props.user.id
         let chat
         // debugger
-        // if (this.props.user.role === "Attendee") {
-        //     chat = this.props.chatRoom
-        // } else {
+        if (this.props.user.role === "Attendee") {
+            chat = this.props.chatRoom
+        } else {
             chat = this.state.chatRoom
-        // }
+        }
         //Create chat function
         this.chats = cable.subscriptions.create({
           channel: 'ChatChannel'
         }, {
           connected: () => {},
           received: (data) => {
-            this.getResponseMessage(data);
-            // console.log(data)
             this.setState({
-                roomId: data.room_id
+                roomId: data.room_id,
             })
+            this.getResponseMessage(data);
+            console.log(data)
           },
           save: function(chatContent, room_id) {
             this.perform('save', {
@@ -164,11 +174,11 @@ class ChatBot extends Component {
       }
 
     render() { 
-        // console.log(this.state.organizer)
+        // console.log(this.props.organizer)
         let eventRooms = []
         if (this.props.user.role === "Organizer") {
             if (this.state.rooms) {
-                eventRooms = this.state.rooms.filter(room => room.event_id === this.state.event.id )
+                eventRooms = this.state.rooms.filter(room => room.event_id === this.props.event.id )
             }
         }
         // console.log(this.state.display)
