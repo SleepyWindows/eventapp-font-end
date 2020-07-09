@@ -189,10 +189,7 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(result => {
-<<<<<<< HEAD
-=======
         // console.log(result)
->>>>>>> master
         this.fetchEvents()
       })
   }
