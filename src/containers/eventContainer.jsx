@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Card, Image, Icon, Button, Modal, Header, Form, Container, Comment, GridColumn } from 'semantic-ui-react'
+import { Grid, Card, Image, Icon, Button, Header, Container, Comment } from 'semantic-ui-react'
 import moment from 'moment'
 import Map from '../components/map';
 import ModalForm from '../components/dash/modalForm';
@@ -72,17 +72,19 @@ class EventContainer extends Component {
                         </Card.Content> : null } 
                     </Card> 
                 </Grid.Column>
-                <Grid.Column width={4}>
+                {this.props.user.role ==='Organizer'
+                ? <Grid.Column width={4}>
                     <h3>Share this for a quick follow</h3>
-                    {this.props.user.role ==='Organizer'?<QRCode url={`localhost:3001/${this.state.id}`}/>: null}
+                    <QRCode url={`localhost:3001/${this.state.id}`}/>
                 </Grid.Column>
+                : null}
                 <Grid.Column width={7}>
                     <Map />
                 </Grid.Column>
             </Grid.Row>
             <Comment.Group>
                 <Header icon="announcement" as='h3'>Announcements</Header>
-                {console.log(announcements)}
+                {/* {console.log(announcements)} */}
                 {announcements.map(announce => {
                     return <Comment>
                         <Comment.Avatar src={<Icon name="user"/>}/>

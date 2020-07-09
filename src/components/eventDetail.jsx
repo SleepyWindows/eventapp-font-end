@@ -15,6 +15,7 @@ class EventDetail extends Component {
     }
 
     render() { 
+        // console.log("Event", this.props.event)
         const {title, image, category, date, id} = this.props.event
         return(
 
