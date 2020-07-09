@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from "react-router-dom";
-import { Button, Form, Message, Header, Segment, Grid } from "semantic-ui-react";
+import { Button, Form, Message, Header, Segment, Grid, Image } from "semantic-ui-react";
 import './auth.css';
 
 class Login extends Component {
@@ -41,7 +41,7 @@ class Login extends Component {
              <div className="auth-content">
                 <div className="auth-card">
                     <Segment stacked>
-                     <h2>Logo</h2>
+                     <Image centered src='../logo-simplified-01.png' style={{height: '60px'}}/>
                      <Header as="h2" color="black">
                          Log-in to your account
                      </Header>
