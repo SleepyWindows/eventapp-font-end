@@ -26,11 +26,11 @@ class ModalForm extends Component {
         let options2 = []
         this.props.orgs.map(org => {
             let o = {key: org.id, text: org.name, value: org.id}
-            options2.push(o)
+            return options2.push(o)
         })
         return (
             <Modal
-                trigger={<Button style={{background: "#86abba"}} size="small" onClick={this.handleOpen}>{this.props.condition === "Add" ? "Add" : "Edit"} Event</Button>}
+                trigger={<Button style={{background: "#FE8E36"}} size="small" onClick={this.handleOpen}>{this.props.condition === "Add" ? "Add" : "Edit"} Event</Button>}
                 open={this.state.modalOpen}
                 onClose={this.handleClose}
                 size='small'

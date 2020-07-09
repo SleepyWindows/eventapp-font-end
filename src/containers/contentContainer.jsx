@@ -30,7 +30,7 @@ class ContentContainer extends Component {
         let options = []
         this.props.events.map(event => {
             let e = {key: event.id, text: event.category, value: event.category}
-            options.push(e)
+            return options.push(e)
         })
 
         const distinctOptions = [{key: "Home", text: "Home", value: "Home"}];
@@ -69,12 +69,13 @@ class ContentContainer extends Component {
                     style={{paddingTop: '5px', paddingBottom: '5px'}}
                     onChange={(e, data) => this.props.handleStateChange("filter", data.value)}
                     />
-                <div style={{paddingBottom: "20px"}} className="ui search">
+                <div style={{paddingBottom: "10px"}} className="ui search">
                     <div className="ui icon input">
                     <input className="prompt" value={this.state.searchTerm} onChange={(e) => this.setState({searchTerm: e.target.value})} />
                     <i className="search icon" />
                     </div>
                 </div>
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
                 {this.props.user && this.props.user.role === "Attendee" ? <p onClick={(e) => console.log(e.target)}>Event not listed?</p> : null} 
@@ -82,6 +83,15 @@ class ContentContainer extends Component {
                     <Grid>
                         <Grid.Column width={5}>
                         {this.state.eventDetail ? <EventDetail user={this.props.user} event={this.state.eventDetail} key={this.state.eventDetail.id} addEventToUser={this.props.addEventToUser} /> : null}
+=======
+                {this.props.user && this.props.user.role === "Attendee" ? <p onClick={(e) => console.log(e.target)}>Event not listed?</p> : null} 
+                    <Grid>
+                        <Grid.Column width={5}>
+                        {this.state.eventDetail 
+                        ? <EventDetail user={this.props.user} event={this.state.eventDetail} key={this.state.eventDetail.id} addEventToUser={this.props.addEventToUser} /> 
+                        : null}
+
+>>>>>>> master
                         </Grid.Column>
                         <Grid.Column width={7}>
                         <EventList events={events} changeEventDetail={this.changeEventDetail}/>

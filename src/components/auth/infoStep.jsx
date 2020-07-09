@@ -66,15 +66,15 @@ export default class infoStep extends Component {
                          value={role}
                          onChange={(e, data) => this.props.handleChange(data.name, data.value)}
                         />
-                        <Button onClick={this.props.prevStep} style={{background: "#FF6600", "marginTop": "20px"}} size="huge">
+                        <Button onClick={this.props.prevStep} style={{background: "#FE8E36", "marginTop": "20px"}} size="huge">
                             Previous
                         </Button>
-                        <Button onClick={this.props.nextStep} style={{background: "#FF6600", "marginTop": "20px"}} size="huge">
+                        <Button onClick={this.props.nextStep} style={{background: "#FE8E36", "marginTop": "20px"}} size="huge">
                             Save and Continue
                         </Button>
         
                         <Message size="small">
-                        <Link style={{color: '#FF6600'}} to="/login">Already Registered?</Link>
+                        <Link style={{color: '#FE8E36'}} to="/login">Already Registered?</Link>
                         </Message>
                      </Form>
                     </Segment>

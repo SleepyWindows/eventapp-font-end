@@ -53,7 +53,7 @@ class UserProfile extends Component {
                       <h4>Role: </h4><p>{role}</p>
                       <h4>Supporter: </h4><p>{supporter}</p>
                       <h4>Age: </h4><p>{age}</p>
-                      <Button content="Edit User" style={{background: "#86abba"}} onClick={() => this.handleChange("edit", !this.state.edit)}/>
+                      <Button content="Edit User" style={{background: "#FE8E36"}} onClick={() => this.handleChange("edit", !this.state.edit)}/>
                   </Segment>
                 </Grid.Column>
                 <Grid.Column width="10">
@@ -90,7 +90,7 @@ class UserProfile extends Component {
                         <input name="age" value={this.state.age} type="number" onChange={(e) => this.handleChange(e.target.name, e.target.value)}/>
                     </Form.Field>
                     </Form>
-                    <Button content="Cancel" style={{background: "#86abba"}} onClick={() => this.handleChange("edit", !this.state.edit)}/>
+                    <Button content="Cancel" style={{background: "#FE8E36"}} onClick={() => this.handleChange("edit", !this.state.edit)}/>
                     <Button content="Submit" color="green" onClick={this.handleSubmit}/>
                     </div>
                     :

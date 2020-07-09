@@ -55,12 +55,12 @@ class userStep extends Component {
                          onChange={(e) => this.props.handleChange(e.target.name, e.target.value)}
                         />
 
-                        <Button style={{background: "#FF6600"}} fluid size="huge">
+                        <Button style={{background: "#FE8E36"}} fluid size="huge">
                             Save and Continue
                         </Button>
         
                         <Message size="small">
-                        <Link style={{color: '#FF6600'}} to="/login">Already Registered?</Link>
+                        <Link style={{color: '#FE8E36'}} to="/login">Already Registered?</Link>
                         </Message>
 
                      </Form>
