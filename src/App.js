@@ -192,8 +192,7 @@ class App extends React.Component {
     })
       .then(res => res.json())
       .then(result => {
-        console.log(result)
-        // this.fetchEvents()
+        this.fetchEvents()
       })
   }
 
@@ -221,6 +220,28 @@ class App extends React.Component {
           return sorted
       }
     }
+  }
+
+  createRoom = (eventId) => {
+    fetch('http://localhost:3000/rooms', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accepts": "application/json",
+            Authorization: `Bearer ${localStorage.token}`
+        },
+        body: JSON.stringify({
+            name: "Room",
+            event_id: eventId
+        })
+      })
+        .then(res => res.json())
+        .then(results =>
+            // console.log(results)
+            this.setState({
+                chatRoom: results
+            })
+        )
   }
 
   render() { 
@@ -272,17 +293,19 @@ class App extends React.Component {
                 orgs={this.state.organizations} 
                 user={this.state.user} 
                 eventDetail={this.state.eventDetail} 
-                createEvent={this.createEvent} 
+                createEvent={this.createEvent}
+                createRoom={this.createRoom} 
               /> : <Redirect to='/login'/>} />
             <Route exact path="/about" component={About}/>
             <Route exact path="/event/:id" component={() => 
             <EventContainer 
+              {...this.state}
+              chatRoom={this.state.chatRoom}
               events={this.state.events}  
               createAnnouncement={this.createAnnouncement} 
               editEvent={this.editEvent} 
               handleStateChange={this.handleStateChanges} 
               eventDetail={this.state.eventDetail} 
-              user={this.state.user} 
               orgs={this.state.organizations} 
               deleteEvent={this.deleteEvent}
             />}/>

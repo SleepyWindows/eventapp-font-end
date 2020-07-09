@@ -5,8 +5,7 @@ import Map from '../components/map';
 import ModalForm from '../components/dash/modalForm';
 import AnnounceFrom from '../components/announceForm'
 import { withRouter } from 'react-router-dom';
-
-
+import ChatBot from '../components/chatBot'
 
 class EventContainer extends Component {
     state = { 
@@ -72,7 +71,7 @@ class EventContainer extends Component {
                     </Card> 
                 </Grid.Column>
                 <Grid.Column width={9}>
-                    <Map />
+                    {/* <Map /> */}
                 </Grid.Column>
             </Grid.Row>
             <Comment.Group>
@@ -88,6 +87,7 @@ class EventContainer extends Component {
                 })}
             </Comment.Group>
             </Grid>
+            <ChatBot chatRoom={this.props.chatRoom} event={this.state.event} events={this.props.events} user={this.props.user}/>
             </Container>
             </div>
         )

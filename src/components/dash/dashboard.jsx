@@ -60,6 +60,7 @@ class Dashboard extends Component {
     changeStateStuff = (event) => {
         // console.log("working")
         this.props.handleStateChange("eventDetail", event)
+        {this.props.user.role === "Attendee" ? this.props.createRoom(event.id) : this.setState({chatRoom: {}})}
         this.props.history.push(`/event/${event.id}`)
     }
   render() { 
