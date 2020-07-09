@@ -77,17 +77,17 @@ class ContentContainer extends Component {
                 </div>
                 {this.props.user && this.props.user.role === "Attendee" ? <p onClick={(e) => console.log(e.target)}>Event not listed?</p> : null} 
                     <Grid>
-                        <Grid.Column width={5}>
+                        <Grid.Column width={6}>
                         {this.state.eventDetail 
                         ? <EventDetail user={this.props.user} event={this.state.eventDetail} key={this.state.eventDetail.id} addEventToUser={this.props.addEventToUser} /> 
                         : null}
                         </Grid.Column>
-                        <Grid.Column width={7}>
+                        <Grid.Column width={10}>
                         <EventList events={events} changeEventDetail={this.changeEventDetail}/>
                         </Grid.Column>
-                        <Grid.Column width={4}>
+                        {/* <Grid.Column width={4}>
                         <EventTimeline />
-                        </Grid.Column>
+                        </Grid.Column> */}
                     </Grid>
                 </Container>
             </div>
