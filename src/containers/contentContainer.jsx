@@ -49,34 +49,33 @@ class ContentContainer extends Component {
         return (
             <div>
                 <Container style={{paddingTop: "30px"}} textAlign='center'>
-                    <strong>Sort by: </strong> 
-                    <label>
-                    <input type="radio" value="Alphabetically" checked={this.props.sort === "Alphabetically"} onChange={(e) => this.props.handleStateChange("sort", e.target.value)}/>
-                    Alphabetically
-                    </label>
-                    <label>
-                    <input type="radio" value="Date" checked={this.props.sort === "Date"} onChange={(e) => this.props.handleStateChange("sort", e.target.value)}/>
-                    Date
-                    </label>
-                    <br/>
-                        <Icon name="filter"/>
-                        Filter {' '}
-                        <Dropdown
-                        inline
-                        header="Filter events"
-                        options={distinctOptions}
-                        value={this.props.filter}
-                        style={{paddingTop: '5px', paddingBottom: '5px'}}
-                        onChange={(e, data) => this.props.handleStateChange("filter", data.value)}
-                        />
-                    <div style={{paddingBottom: "10px"}} className="ui search">
-                        <div className="ui icon input">
-                        <input className="prompt" value={this.state.searchTerm} onChange={(e) => this.setState({searchTerm: e.target.value})} />
-                        <i className="search icon" />
-                        </div>
+                <strong>Sort by: </strong> 
+                <label>
+                <input type="radio" value="Alphabetically" checked={this.props.sort === "Alphabetically"} onChange={(e) => this.props.handleStateChange("sort", e.target.value)}/>
+                Alphabetically
+                </label>
+                <label>
+                <input type="radio" value="Date" checked={this.props.sort === "Date"} onChange={(e) => this.props.handleStateChange("sort", e.target.value)}/>
+                Date
+                </label>
+                <br/>
+                    <Icon name="filter"/>
+                    Filter {' '}
+                    <Dropdown
+                    inline
+                    header="Filter events"
+                    options={distinctOptions}
+                    value={this.props.filter}
+                    style={{paddingTop: '5px', paddingBottom: '5px'}}
+                    onChange={(e, data) => this.props.handleStateChange("filter", data.value)}
+                    />
+                <div style={{paddingBottom: "10px"}} className="ui search">
+                    <div className="ui icon input">
+                    <input className="prompt" value={this.state.searchTerm} onChange={(e) => this.setState({searchTerm: e.target.value})} />
+                    <i className="search icon" />
                     </div>
-
-                    {this.props.user && this.props.user.role === "Attendee" ? <p onClick={(e) => console.log(e.target)}>Event not listed?</p> : null} 
+                </div>
+                {this.props.user && this.props.user.role === "Attendee" ? <p onClick={(e) => console.log(e.target)}>Event not listed?</p> : null} 
                     <Grid>
                         <Grid.Column width={5}>
                         {this.state.eventDetail 
