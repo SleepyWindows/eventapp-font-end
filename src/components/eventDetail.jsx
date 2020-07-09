@@ -32,7 +32,7 @@ class EventDetail extends Component {
                     {moment(date).format("dddd, MMMM D, YYYY" )}
                 </Card.Content>
                 {this.props.user && this.props.user.role === "Attendee" ? <Card.Content extra>
-                  <Button onClick={() => this.handleUserEvent(id)} content="Follow Event" size="large" style={{background: "#86abba"}}/>
+                  <Button onClick={() => this.handleUserEvent(id)} content="Follow Event" size="large" style={{background: "#FE8E36"}}/>
                 </Card.Content> : null
                 } 
             </Card>    

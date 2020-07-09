@@ -30,7 +30,7 @@ class ModalForm extends Component {
         })
         return (
             <Modal
-                trigger={<Button style={{background: "#86abba"}} size="small" onClick={this.handleOpen}>{this.props.condition === "Add" ? "Add" : "Edit"} Event</Button>}
+                trigger={<Button style={{background: "#FE8E36"}} size="small" onClick={this.handleOpen}>{this.props.condition === "Add" ? "Add" : "Edit"} Event</Button>}
                 open={this.state.modalOpen}
                 onClose={this.handleClose}
                 size='small'

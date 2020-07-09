@@ -202,7 +202,7 @@ class App extends React.Component {
   
   eventList = () => {
     // console.log(this.state.events.error == "Please Login")
-    if (this.state.events.error === "Please Login") {
+    if (this.state.events.error) {
       return null
     } else {
       let sorted = [...this.state.events].filter(event => event.public === true)
@@ -228,7 +228,7 @@ class App extends React.Component {
         ? <h4> Loading... </h4>
         : <Router>
             <NavBar handleStateChange={this.handleStateChanges} />
-            <Banner eventName={this.state.eventName}/>
+            <Banner eventName='ConnectUs'/>
             <Route exact path="/" component={() =>
               <ContentContainer 
                 event={this.state.event} 
