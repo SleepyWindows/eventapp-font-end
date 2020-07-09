@@ -62,10 +62,10 @@ class ChatBot extends Component {
     handleNewUserMessage = (newMessage) => {
         // Now send the message to the backend API
         if (this.props.user.role === "Organizer") {
-            this.chats.create(newMessage, this.state.roomId)
+            this.chats.save(newMessage, this.state.roomId)
             this.fetchChatRooms()
         } else {
-            this.chats.create(newMessage, this.state.chatRoom.id);
+            this.chats.save(newMessage, this.state.chatRoom.id);
         }
         //Update the state of current message
         this.state.currentMessage = newMessage;
@@ -147,14 +147,14 @@ class ChatBot extends Component {
         }, {
           connected: () => {},
           received: (data) => {
-            // this.getResponseMessage(data);
-            console.log(data)
-            // this.setState({
-            //     roomId: data.room_id
-            // })
+            this.getResponseMessage(data);
+            // console.log(data)
+            this.setState({
+                roomId: data.room_id
+            })
           },
-          create: function(chatContent, room_id) {
-            this.perform('create', {
+          save: function(chatContent, room_id) {
+            this.perform('save', {
                 roomId: room_id,
                 content: chatContent,
                 userId: userId
@@ -171,7 +171,7 @@ class ChatBot extends Component {
                 eventRooms = this.state.rooms.filter(room => room.event_id === this.state.event.id )
             }
         }
-        console.log(this.state.display)
+        // console.log(this.state.display)
         return ( 
             <div className="App">
                 {this.props.user.role === "Attendee" ? <Widget 
